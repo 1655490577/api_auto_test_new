@@ -22,17 +22,19 @@ class TestUserDelete(object):
             logger.info(f"当前获取到的token：{token},userId：{userId}")
 
         with allure.step("step2: 步骤2 ==>> 获取被删除用户id"):
+            delete_id = []
             rsp_list1 = getter.user_list(cookies=cookies, pageNum=1, pageSize=1000, token=token, userid=userId)
-            for i in rsp_list1.json()['data']['list']:
-                if i['name'] == '测试账号111':
-                    delete_Id = i['id']
-                    break
-                else:
-                    delete_Id = ''
-            logger.info(f"被删除用户id为{delete_Id}")
+            for i, item in enumerate(rsp_list1.json()['data']['list']):
+                if item['name'] == f'测试添加账号{i+1}':
+                    if request_parameters['deleteInfo'] == '删除单个用户':
+                        delete_id.append(item['id'])
+                        break
+                    elif request_parameters['deleteInfo'] == '批量删除用户':
+                        delete_id.append(item['id'])
+            logger.info(f"被删除用户id为{delete_id}")
 
         with allure.step("step3: 步骤3 ==>>删除用户"):
-            rsp_delete = getter.user_delete(cookies=cookies, id=delete_Id, userid=userId, token=token)
+            rsp_delete = getter.user_delete(cookies=cookies, id=delete_id, userid=userId, token=token)
             logger.info(f"删除结果为{rsp_delete.json()['message']}")
 
         with allure.step("step4: 步骤4 ==>>查询所有用户列表"):
@@ -43,7 +45,8 @@ class TestUserDelete(object):
         assert rsp_delete.json()['message'] == expected_response['message']
         assert rsp_delete.json()['status'] == expected_response['status']
         assert rsp_list2.json()['data'] is not None
-        assert re.search(delete_Id, str(rsp_list2.json()['data'])) is None
+        for i in delete_id:
+            assert re.search(i, str(rsp_list2.json()['data'])) is None
 
     @pytest.mark.parametrize(('request_parameters', 'expected_response'),
                              getter.load_excel('监理api接口自动化测试用例.xls', '用户管理', '删除用户失败'))
@@ -54,15 +57,21 @@ class TestUserDelete(object):
             logger.info(f"当前获取到的token：{token},userId：{userId}")
 
         with allure.step("step2: 步骤2 ==>> 根据用例获取对应用户id/cookies"):
+            rsp_list1 = getter.user_list(cookies=cookies, pageNum=1, pageSize=1000, token=token, userid=userId)
+            delete_id = []
             if request_parameters['deleteInfo'] == 'id不存在':
                 delete_id = '123213123213'
             if request_parameters['deleteInfo'] == 'id为空':
                 delete_id = ''
+            if request_parameters['deleteInfo'] == '批量删除用户':
+                for i, item in enumerate(rsp_list1.json()['data']['list']):
+                    if item['name'] == f'测试添加账号{i + 1}':
+                        delete_id.append(item['id'])
+                delete_id.append('12312312343241')
             if request_parameters['deleteInfo'] == '未登录删除用户':
-                rsp_list1 = getter.user_list(cookies=cookies, pageNum=1, pageSize=1000, token=token, userid=userId)
-                for i in rsp_list1.json()['data']['list']:
-                    if i['name'] == '测试账号111':
-                        delete_id = i['id']
+                for i, item in enumerate(rsp_list1.json()['data']['list']):
+                    if item['name'] == f'测试添加账号{i+1}':
+                        delete_id.append(item['id'])
                         break
 
         with allure.step("step3: 步骤3 ==>> 根据对应信息删除用户"):

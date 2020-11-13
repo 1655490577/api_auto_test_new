@@ -1,0 +1,21 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+.idea/.gitignore
+.idea/api_auto_test.iml
+.idea/dictionaries/
+.idea/inspectionProfiles/
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+API/__pycache__/
+common/__pycache__/
+config/__pycache__/
+test_case/__pycache__/
+"test_case/\347\224\250\346\210\267\347\256\241\347\220\206/__pycache__/"
