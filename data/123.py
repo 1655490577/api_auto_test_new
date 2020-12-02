@@ -23,13 +23,14 @@ import requests
 
 # a = [{"password": "123456", "phone": "13168775501", "rememberMe": True}]
 # print(list(a))
-token, userId, cookies = getter.get_login_token_cookies('13168775547', '1')
+token, userId, cookies = getter.get_login_token_cookies('13100000001', '1')
 # # a = getter.organization_findDivision(cookies=cookies, token=token, userid=userId)
 # # print(a.json())
 # a = []
-rsp_test = getter.user_findJob(cookies=cookies, token=token, userid=userId, pageNum=1, pageSize=100)
+# rsp_test = getter.user_findJob(cookies=cookies, token=token, userid=userId, pageNum=1, pageSize=100)
+rsp_test = getter.user_findDivision(cookies=cookies, pageNum=1, pageSize=10000, token=token, userid=userId)
 # print(rsp_test.json())
-print(re.search("52", "sadfdsfadsfdasf'name': '测试系统管理权限'"))
+print(rsp_test.json())
 
 
 # if isinstance(rsp_test['data']['children'], Iterable):
@@ -64,3 +65,21 @@ print(re.search("52", "sadfdsfadsfdasf'name': '测试系统管理权限'"))
 #
 # a = Test()
 # print(a.get_dict_allkeys(rsp_test.json()))
+
+var = {'data': {'endRow': 2, 'hasNextPage': False, 'hasPreviousPage': False, 'isFirstPage': True, 'isLastPage': True,
+                'list': [{'code': '0104', 'creationId': '297075930940047360', 'creationTime': 1602220569000,
+                          'id': '300365891533537280', 'idList': [], 'isDeleted': 0, 'label': '事业部四', 'lastUpdateId': '',
+                          'level': 2, 'levelList': [], 'parentId': '300356110395637760', 'pcode': '01', 'pidList': [],
+                          'remarks': '', 'updateTime': None},
+                         {'code': '0102', 'creationId': '297075930940047360', 'creationTime': 1602220559000,
+                          'id': '300365848961351680', 'idList': [], 'isDeleted': 0, 'label': '事业部二',
+                          'lastUpdateId': '301777441880276992', 'level': 2, 'levelList': [],
+                          'parentId': '300356110395637760', 'pcode': '01', 'pidList': [], 'remarks': '',
+                          'updateTime': 1603860077000},
+                         {'code': '0101', 'creationId': '297075930940047360', 'creationTime': 1602220547000,
+                          'id': '300365800210956288', 'idList': [], 'isDeleted': 0, 'label': '事业部一',
+                          'lastUpdateId': '301777441880276992', 'level': 2, 'levelList': [],
+                          'parentId': '300356110395637760', 'pcode': '01', 'pidList': [], 'remarks': '',
+                          'updateTime': 1604377104000}], 'navigateFirstPage': 1, 'navigateLastPage': 1,
+                'navigatePages': 8, 'navigatepageNums': [1], 'nextPage': 0, 'pageNum': 1, 'pageSize': 3, 'pages': 1,
+                'prePage': 0, 'size': 3, 'startRow': 0, 'total': 3}, 'message': '成功', 'status': '0'}

@@ -9,7 +9,8 @@ def server_ip():
     :return:
     """
     server_ip_dev = 'http://manage.supervisor.dev.hfhksoft.com/api'   # 开发环境
-    return server_ip_dev
+    server_ip_test = 'http://manage.supervisor.test.hfhksoft.com/api'  # 测试环境
+    return server_ip_test
 
 
 def mysql_setting():
@@ -21,10 +22,22 @@ def mysql_setting():
     database 要使用的数据库
     autocommit 防止事物执行阻塞，默认为false
     """
-    test1 = {"host": "192.168.30.21",
-             "user": "supervisor",
-             "password": "Hfhk-supervisor-!@#-1230.",
-             "database": "supervisor",
-             "autocommit": True}
+    dev_sql = {
+        "host": "192.168.30.21",
+        "port": 3306,
+        "user": "supervisor",
+        "password": "Hfhk-supervisor-!@#-1230.",            # 开发环境数据库
+        "database": "supervisor",
+        "autocommit": True
+    }
 
-    return test1
+    test_sql = {
+        "host": "192.168.30.21",
+        "port": 3307,
+        "user": "supervisor",
+        "password": "Hfhk-supervisor-!@#-1230.",            # 测试环境数据库
+        "database": "supervisor",
+        "autocommit": True
+    }
+
+    return test_sql
