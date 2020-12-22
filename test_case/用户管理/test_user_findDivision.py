@@ -14,9 +14,9 @@ class TestUserFindDivision(object):
     def test_user_findDivision_success(self, request_parameters, expected_response):
         with allure.step("step1: 步骤1 ==>> 使用正确用户名密码登录系统获取对应token与userId"):
             token, userId, cookies = getter.get_login_token_cookies(request_parameters['phone'],
-                                                                    request_parameters['password'])
+                                                                    request_parameters['password'], mobileType=2)
         with allure.step("step2: 步骤2 ==>> 查询所有事业部"):
-            rsp_data = getter.user_findDivision(cookies=cookies, pageNum=1, pageSize=1000, userid=userId, token=token)
+            rsp_data = getter.user_findDivision(cookies=cookies, mobileType=2, pageNum=1, pageSize=1000, userid=userId, token=token)
 
         assert rsp_data.status_code == 200
         assert rsp_data.json()['data'] is not None

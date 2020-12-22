@@ -50,7 +50,7 @@ class TestOrganizationDelete(object):
             logger.info(f"当前获取到的token：{token},userId：{userId}")
 
         with allure.step("step2: 步骤2 ==>> 获取需要删除的公司id"):
-            rsp_tree = getter.organization_findOrganizationTree(cookies=cookies, code='01', token=token, userid=userId)
+            rsp_tree = getter.organization_findOrganizationTree(cookies=cookies, code='01', mobileType=2, token=token, userid=userId)
             if request_parameters['deleteInfo'] == '公司':
                 company_id = rsp_tree.json()['data']['list'][0]['id']
                 logger.info(f"本次删除的公司名称为{rsp_tree.json()['data']['list'][0]['label']},"
@@ -68,11 +68,11 @@ class TestOrganizationDelete(object):
 
         with allure.step("step3: 步骤3 ==>> 删除指定部门"):
             if request_parameters['deleteInfo'] == '公司':
-                rsp_delete = getter.organization_delete(cookies=cookies, id=company_id, token=token, userid=userId)
+                rsp_delete = getter.organization_delete(cookies=cookies, id=company_id, mobileType=2, token=token, userid=userId)
             elif request_parameters['deleteInfo'] == '项目':
-                rsp_delete = getter.organization_delete(cookies=cookies, id=project_id, token=token, userid=userId)
+                rsp_delete = getter.organization_delete(cookies=cookies, id=project_id, mobileType=2, token=token, userid=userId)
             elif request_parameters['deleteInfo'] == '有项目的部门':
-                rsp_delete = getter.organization_delete(cookies=cookies, id=branchList[0], token=token, userid=userId)
+                rsp_delete = getter.organization_delete(cookies=cookies, id=branchList[0], mobileType=2, token=token, userid=userId)
             logger.info(f"本次删除结果为{rsp_delete.json()['message']}")
 
         assert rsp_delete.status_code == 200

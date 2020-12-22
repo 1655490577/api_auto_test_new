@@ -13,10 +13,10 @@ class TestLogout(object):
     def test_logout(self, request_parameters, expected_response):
         with allure.step("step1: 步骤1 ==>> 使用正确用户名密码登录系统获取对应token与userId"):
             token, userId, cookies = getter.get_login_token_cookies(request_parameters['phone'],
-                                                                    request_parameters['password'])
+                                                                    request_parameters['password'], mobileType=2)
             logger.info(f"当前获取到的token：{token},userId：{userId}")
         with allure.step("step2: 步骤2 ==>> 使用当前获取到的信息退出登录"):
-            rsp_logout = getter.user_logout(cookies=cookies, token=token, userid=userId)
+            rsp_logout = getter.user_logout(cookies=cookies, mobileType=2, token=token, userid=userId)
             print(rsp_logout.json())
             logger.info(f"本次测试登录账号为{request_parameters['phone']}========>接口返回状态码为{rsp_logout.status_code}，"
                         f"message为{rsp_logout.json()['message']}，status为{rsp_logout.json()['status']}")

@@ -17,7 +17,7 @@ class TestOrganizationFindDivision(object):
             logger.info(f"当前获取到的token：{token},userId：{userId}")
 
         with allure.step("step2: 步骤2 ==>> 请求获取所有事业部信息"):
-            rsp_branch = getter.organization_findDivision(cookies=cookies, token=token, userid=userId)
+            rsp_branch = getter.organization_findDivision(cookies=cookies, mobileType=2, token=token, userid=userId)
 
         assert rsp_branch.status_code == 200
         assert rsp_branch.json()['data'] is not None

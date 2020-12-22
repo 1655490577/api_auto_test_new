@@ -17,9 +17,9 @@ class TestUserList(object):
     def test_user_list_success(self, request_parameters, expected_response):
         with allure.step("step1: 步骤1 ==>> 使用正确用户名密码登录系统获取对应token与userId"):
             token, userId, cookies = getter.get_login_token_cookies(request_parameters['phone'],
-                                                                    request_parameters['password'])
+                                                                    request_parameters['password'], mobileType=2)
         with allure.step("step2: 步骤2 ==>> 查询用户列表"):
-            rsp_list = getter.user_list(cookies=cookies, pageNum=1, pageSize=1000, token=token, userid=userId)
+            rsp_list = getter.user_list(cookies=cookies, mobileType=2, pageNum=1, pageSize=1000, token=token, userid=userId)
 
         assert rsp_list.status_code == 200
         assert rsp_list.json()['data'] is not None

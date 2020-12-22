@@ -19,7 +19,7 @@ class TestOrganizationFindOrganizationTree(object):
         with allure.step("step2: 步骤2 ==>> 请求获取组织架构树信息"):
             rsp_tree = getter.organization_findOrganizationTree(cookies=cookies, code=request_parameters['code'],
                                                                 label=request_parameters['label'],
-                                                                token=token, userid=userId)
+                                                                mobileType=2, token=token, userid=userId)
             assert rsp_tree.status_code == 200
             assert rsp_tree.json()['data'] is not None
             assert rsp_tree.json()['message'] == expected_response['message']

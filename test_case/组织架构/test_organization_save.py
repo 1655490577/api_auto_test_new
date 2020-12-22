@@ -23,16 +23,16 @@ class TestOrganizationSave(object):
             logger.info(f"当前获取到的token：{token},userId：{userId}")
 
         with allure.step("step2: 步骤2 ==>> 获取公司节点id"):
-            rsp_tree = getter.organization_findOrganizationTree(cookies=cookies, code='01', token=token, userid=userId)
+            rsp_tree = getter.organization_findOrganizationTree(cookies=cookies, code='01', mobileType=2, token=token, userid=userId)
             company_id = rsp_tree.json()['data']['list'][0]['id']
 
         with allure.step("step3: 步骤3 ==>> 添加组织架构"):
             rsp_add = getter.organization_save(cookies=cookies, label=request_parameters['label'], pid=company_id,
-                                               type=request_parameters['type'], token=token, userid=userId)
+                                               type=request_parameters['type'], mobileType=2, token=token, userid=userId)
             logger.info(f"添加返回结果为：{rsp_add.json()}")
 
         with allure.step("step4: 步骤4 ==>> 查询当前组织架构，验证是否添加成功"):
-            rsp_select = getter.organization_findDivision(cookies=cookies, token=token, userid=userId)
+            rsp_select = getter.organization_findDivision(cookies=cookies, mobileType=2, token=token, userid=userId)
             logger.info(f"查询返回结果为：{rsp_select.json()}")
 
         assert rsp_add.status_code == 200

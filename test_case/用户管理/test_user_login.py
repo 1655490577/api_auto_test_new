@@ -13,7 +13,7 @@ class TestLogin(object):
     def test_login_success(self, request_parameters, expected_response):
         with allure.step("step1: 步骤1 ==>> 使用正确用户名密码登录系统"):
             rsp_login = getter.user_login(phone=request_parameters['phone'], password=request_parameters['password'],
-                                          rememberMe=request_parameters['rememberMe'])
+                                          rememberMe=request_parameters['rememberMe'], mobileType=2,)
             logger.info(f"本次测试登录账号为{request_parameters['phone']}========>接口返回状态码为{rsp_login.status_code}，"
                         f"message为{rsp_login.json()['message']}，status为{rsp_login.json()['status']}")
 
@@ -27,7 +27,7 @@ class TestLogin(object):
     def test_login_fail(self, request_parameters, expected_response):
         with allure.step("step1: 步骤1 ==>> 使用错误用户名密码登录系统"):
             rsp_login = getter.user_login(phone=request_parameters['phone'], password=request_parameters['password'],
-                                          rememberMe=request_parameters['rememberMe'])
+                                          rememberMe=request_parameters['rememberMe'], mobileType=2,)
             logger.info(f"本次测试登录账号为{request_parameters['phone']}========>接口返回状态码为{rsp_login.status_code}，"
                         f"message为{rsp_login.json()['message']}，status为{rsp_login.json()['status']}")
 

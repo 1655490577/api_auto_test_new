@@ -8,11 +8,11 @@ class get_data(Requester, ReadFileData):
         self.BASE_PATH = ReadFileData().BASE_PATH
         self.id_list = []
 
-    def get_login_token_cookies(self, phone, password, rememberMe=False):
+    def get_login_token_cookies(self, phone, password, mobileType, rememberMe=False):
         """
         获取用户登录成功后的token和cookies
         """
-        r = self.user_login(phone=phone, password=password, rememberMe=rememberMe)
+        r = self.user_login(phone=phone, password=password, mobileType=mobileType, rememberMe=rememberMe)
         token, userId, cookies = r.json()['data']['token'], r.json()['data']['tbAdmin']['id'], r.cookies.get_dict()
         return token, userId, cookies
 

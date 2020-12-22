@@ -8,9 +8,9 @@ def server_ip():
     server_ip_inside：str  内网地址
     :return:
     """
-    server_ip_dev = 'http://manage.supervisor.dev.hfhksoft.com/api'   # 开发环境
-    server_ip_test = 'http://manage.supervisor.test.hfhksoft.com/api'  # 测试环境
-    return server_ip_test
+    server_ip_dev = 'http://supervisor.dev.hfhksoft.com/api'   # 开发环境
+    server_ip_test = 'http://supervisor.test.hfhksoft.com/api'  # 测试环境
+    return server_ip_dev
 
 
 def mysql_setting():
